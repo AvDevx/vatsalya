@@ -1,11 +1,19 @@
 {
-  "name": "vatsalya",
+  "name": "vatsalya4",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build --target lib --name vatsalya4 src/index.js"
   },
+
+  "main": "dist/vatsalya4.umd.js",
+  "module": "dist/vatsalya4.common.js",
+
+  "files": [
+    "dist/*"
+  ],
+
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^2.6.11"
