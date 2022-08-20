@@ -1,6 +1,6 @@
 import components from'./components.js'
 
-const plugin = {
+const vatsalya = {
   install (Vue) {
     for (const prop in components) {
       if (components.hasOwnProperty(prop)) {
@@ -11,4 +11,4 @@ const plugin = {
   }
 }
 
-export default plugin
+export default vatsalya

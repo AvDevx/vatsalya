@@ -1,14 +1,14 @@
 {
-  "name": "vatsalya4",
+  "name": "@avdevx/vatsalya",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name vatsalya4 src/index.js"
+    "build": "vue-cli-service build --target lib --name vatsalya src/index.js"
   },
 
-  "main": "dist/vatsalya4.umd.js",
-  "module": "dist/vatsalya4.common.js",
+  "main": "dist/vatsalya.umd.js",
+  "module": "dist/vatsalya.common.js",
 
   "files": [
     "dist/*"
