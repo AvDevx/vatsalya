@@ -4,5 +4,5 @@ module.exports = {
       libraryExport: 'default',
     }
   },
-  css: { extract: false }
+  css: { extract: false } // this allows vue components to ship with their scoped CSS in SFC Format
 }
