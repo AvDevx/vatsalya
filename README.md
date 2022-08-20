@@ -1,19 +1,13 @@
-# vatsalya
+### vatsalya
+A simple Vue js component library.
 
-## Project setup
+#### How to?
+Add vatsyalya to your vue project
 ```
-npm install
+npm install @avdevx/vatsalya
 ```
-
-### Compiles and hot-reloads for development
+Update src/main.js to use library
 ```
-npm run serve
+import vatsalya from '@avdevx/vatsalya'
+Vue.use(vatsalya)
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
