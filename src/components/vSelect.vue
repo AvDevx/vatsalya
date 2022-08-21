@@ -1,23 +1,32 @@
 <template>
-  <div class="custom-select" :tabindex="tabindex" @blur="open = false">
-    <div class="selected" :class="{ open: open }" @click="open = !open">
-      {{ selected }}
-    </div>
-    <transition name="bounce">
-    <div class="items" v-if="open" :class="{ selectHide: !open }">
-      <div
-        v-for="(option, i) of options"
-        :key="i"
-        @click="
-          selected = option;
-          open = false;
-          $emit('input', option);
-        "
-      >
-        {{ option }}
+  <div>
+    <label
+      v-if="label"
+      class="inputLabel"
+      :for="id"
+    >
+      <strong>{{ label }}</strong>
+    </label>
+    <div class="custom-select" :tabindex="tabindex" @blur="open = false">
+      <div class="selected" :class="{ open: open }" @click="open = !open">
+        {{ selected[text] }}
       </div>
+      <transition name="bounce">
+      <div class="items" v-if="open" :class="{ selectHide: !open }">
+        <div
+          v-for="(option, i) of options"
+          :key="i"
+          @click="
+            selected = option;
+            open = false;
+            $emit('input', option);
+          "
+        >
+          {{ option[text] }}
+        </div>
+      </div>
+      </transition>
     </div>
-    </transition>
   </div>
 </template>
 <script>
@@ -28,6 +37,11 @@ export default {
       type: Array,
       required: true,
     },
+    text: {
+      type: String,
+      required: true
+    },
+    label: String,
     default: {
       type: String,
       required: false,
@@ -55,6 +69,12 @@ export default {
 };
 </script>
 <style scoped>
+
+.inputLabel{
+  display: block;
+  font-size: 14px;
+  padding: 0.5rem 0;
+}
 
 .custom-select {
   position: relative;
@@ -107,7 +127,7 @@ export default {
 }
 
 .custom-select .items div:hover {
-  background-color: #5E4BD0;
+  background-color: #6C70F7;
   color: white;
 }
 
