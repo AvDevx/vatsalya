@@ -94,7 +94,6 @@ export default {
 	align-items: center;
 }
 
-
 .checkbox-form .item input {
 	position: absolute;
 	opacity: 0;
@@ -129,15 +128,25 @@ export default {
 
 .checkbox-form .item input[type="checkbox"]:checked ~ .checkmark:after {
 	display: block;
+  animation: bounce-in 0.5s forwards;
 }
 
 .checkbox-form .item .checkmark:after {
-	left: 9px;
-	top: 5px;
 	width: 5px;
 	height: 10px;
 	border: solid white;
 	border-width: 0 3px 3px 0;
-	transform: translate(71%,48%) rotate(45deg);
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0) translate(180%,80%) rotate(45deg);
+  }
+  50% {
+    transform: scale(1.02) translate(180%,80%) rotate(45deg);
+  }
+  100% {
+    transform: scale(1) translate(180%,80%) rotate(45deg);
+  }
 }
 </style>
