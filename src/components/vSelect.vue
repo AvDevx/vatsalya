@@ -18,7 +18,7 @@
           :key="i"
           @click="
             selected = option;
-            open = false;
+            open = multiSelect ? true : false;
             $emit('input', option);
           "
         >
@@ -36,6 +36,10 @@ export default {
     options: {
       type: Array,
       required: true,
+    },
+    multiSelect: {
+      type: boolean,
+      default: false
     },
     text: {
       type: String,

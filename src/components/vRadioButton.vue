@@ -102,16 +102,13 @@ export default {
 .container .checkmark:after {
  	width: 15px;
   height: 15px;
-  transform: translate(70%, 70%);
 	border-radius: 50%;
 	background: white;
-  transition: all 0.7s ease-in-out;
 }
-
 
 @keyframes bounce-in {
   0% {
-    transform: scale(0) translate(70%, 70%);
+    transform: scale(0) translate(90%, 90%);
   }
   50% {
     transform: scale(1.02) translate(70%, 70%); 
