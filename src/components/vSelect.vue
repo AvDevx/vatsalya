@@ -209,6 +209,23 @@ export default {
   z-index: 1;
   margin-top: 5px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.custom-select .items::-webkit-scrollbar {
+  width: 5px;
+  padding-left: 10px;
+}
+ 
+.custom-select .items::-webkit-scrollbar-track {
+  background: transparent;
+}
+ 
+.custom-select .items::-webkit-scrollbar-thumb {
+  background-color: rgb(235, 235, 235);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 20px;
 }
 
 .custom-select .items > div {

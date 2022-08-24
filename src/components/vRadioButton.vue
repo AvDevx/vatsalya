@@ -5,12 +5,12 @@
       v-for="(option, i) in options"
       :key="i"
     > 
-      <div class="checkboxTitle" :for="option"><strong>{{ option[text] }}</strong></div>
+      <div class="checkboxTitle" :for="option[text]"><strong>{{ option[text] }}</strong></div>
       <input
         type="radio"
         :name="name"
-        :value="option"
-        :id="option"
+        :value="option[text]"
+        :id="option[text]"
         @change="$emit('input', option)"
       />
       <span class="checkmark"></span>
