@@ -10,7 +10,8 @@
         :class="{ open: open }"
         @click="open = !open"
       >
-        {{ selected[text] }}
+        {{ selectedIndex.length ?  options[selectedIndex[0]][text] : 'Please make a selection' }} 
+        <div v-if="selectedIndex.length > 1" class="selectionInfo" key="info">{{ selectedIndex.length > 1 ? ` + ${selectedIndex.length - 1} ` : '' }}</div>
       </div>
       <div
         class="selected"
@@ -20,20 +21,20 @@
       >
         {{ selected[text] }}
       </div>
-      <transition name="bounce">
+      <Transition name="slide">
         <div class="items" v-if="open" :class="{ selectHide: !open }">
           <div v-for="(option, i) of options" :key="i" @click="setSelection(i)">
             <div class="listContainer">
-              <transition name="bounce" key="selected" mode="out-in">
+              <Transition name="bounce" key="selected" mode="out-in">
               <div key="1" v-if="multiSelect && option.selected" name="checked" class="checked">
               </div>
               <div key="2" v-else-if="multiSelect && !option.selected" class="checkmark"></div>
-              </transition>
+              </Transition>
               {{ option[text] }}
             </div>
           </div>
         </div>
-      </transition>
+      </Transition>
     </div>
   </div>
 </template>
@@ -69,11 +70,13 @@ export default {
     return {
       selected: this.options[0],
       open: false,
+      selectedIndex: []
     };
   },
   mounted () {
     if (this.multiSelect) {
       this.options[0].selected = true
+      this.selectedIndex.push(0)
       this.$emit("input", [this.options[0]])
     } else {
       this.$emit("input", this.options[0])
@@ -84,8 +87,10 @@ export default {
       if (this.multiSelect) {
         if (this.options[index].selected) {
           this.options[index].selected = false
+          this.selectedIndex.splice(this.selectedIndex.indexOf(index), 1)
         } else {
           this.options[index].selected = true
+          this.selectedIndex.push(index)
         }
 
         this.selected = []
@@ -113,12 +118,22 @@ export default {
 }
 </script>
 <style scoped>
+.selectionInfo {
+  font-size: 12px;
+  color: #a2802c;
+  background-color: rgb(255 225 148 / 54%);
+  padding: 9px 10px;
+  margin-left: 8px;
+  border-radius: 7px;
+  display: inline;
+}
 .checked {
   height: 36px;
 	width: 36px;
   margin-right: 12px;
 	background-color: #6c70f7;
   border-radius: 12px;
+  box-sizing: border-box;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 .checked::before{
@@ -134,7 +149,7 @@ export default {
 	height: 36px;
 	width: 36px;
   margin-right: 12px;
-	background-color: #FFFFFF;
+	background-color: #e9e9e9;
   border-radius: 12px;
 }
 .listContainer {
@@ -202,18 +217,21 @@ export default {
   user-select: none;
 }
 
-.custom-select .items div:hover {
+.custom-select .items > div:hover {
   background-color: #6c70f7;
   color: white;
+}
+.custom-select .items > div:hover .checkmark , .custom-select .items > div:hover .checked{
+  background-color: #0a0d5e2d;
 }
 
 .selectHide {
   display: none;
 }
-.bounce-enter-active {
+.slide-enter-active {
   animation: slide-in 0.2s;
 }
-.bounce-leave-active {
+.slide-leave-active {
   animation: slide-in 0.2s reverse;
 }
 @keyframes slide-in {
@@ -226,12 +244,20 @@ export default {
     transform: translateY(0px);
   }
 }
+
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+
 @keyframes bounce-in {
   0% {
     transform: scale(0);
   }
   50% {
-    transform: scale(1.25);
+    transform: scale(1.15);
   }
   100% {
     transform: scale(1);
