@@ -2,8 +2,8 @@
   <div>
     <label 
       class="container"
-      v-for="option in options"
-      :key="option"
+      v-for="(option, i) in options"
+      :key="i"
     > 
       <div class="checkboxTitle" :for="option"><strong>{{ option[text] }}</strong></div>
       <input

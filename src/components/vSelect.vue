@@ -1,30 +1,38 @@
 <template>
   <div>
-    <label
-      v-if="label"
-      class="inputLabel"
-      :for="id"
-    >
+    <label v-if="label" class="inputLabel" :for="id">
       <strong>{{ label }}</strong>
     </label>
     <div class="custom-select" :tabindex="tabindex" @blur="open = false">
-      <div class="selected" :class="{ open: open }" @click="open = !open">
+      <div
+        class="selected"
+        v-if="multiSelect"
+        :class="{ open: open }"
+        @click="open = !open"
+      >
+        {{ selected[text] }}
+      </div>
+      <div
+        class="selected"
+        v-else
+        :class="{ open: open }"
+        @click="open = !open"
+      >
         {{ selected[text] }}
       </div>
       <transition name="bounce">
-      <div class="items" v-if="open" :class="{ selectHide: !open }">
-        <div
-          v-for="(option, i) of options"
-          :key="i"
-          @click="
-            selected = option;
-            open = multiSelect ? true : false;
-            $emit('input', option);
-          "
-        >
-          {{ option[text] }}
+        <div class="items" v-if="open" :class="{ selectHide: !open }">
+          <div v-for="(option, i) of options" :key="i" @click="setSelection(i)">
+            <div class="listContainer">
+              <transition name="bounce" key="selected" mode="out-in">
+              <div key="1" v-if="multiSelect && option.selected" name="checked" class="checked">
+              </div>
+              <div key="2" v-else-if="multiSelect && !option.selected" class="checkmark"></div>
+              </transition>
+              {{ option[text] }}
+            </div>
+          </div>
         </div>
-      </div>
       </transition>
     </div>
   </div>
@@ -38,7 +46,7 @@ export default {
       required: true,
     },
     multiSelect: {
-      type: boolean,
+      type: Boolean,
       default: false
     },
     text: {
@@ -59,22 +67,86 @@ export default {
   },
   data() {
     return {
-      selected: this.default
-        ? this.default
-        : this.options.length > 0
-        ? this.options[0]
-        : null,
+      selected: this.options[0],
       open: false,
     };
   },
-  mounted() {
-    this.$emit("input", this.selected);
+  mounted () {
+    if (this.multiSelect) {
+      this.options[0].selected = true
+      this.$emit("input", [this.options[0]])
+    } else {
+      this.$emit("input", this.options[0])
+    }
   },
-};
+  methods: {
+    setSelection: function (index) {
+      if (this.multiSelect) {
+        if (this.options[index].selected) {
+          this.options[index].selected = false
+        } else {
+          this.options[index].selected = true
+        }
+
+        this.selected = []
+
+        console.log(this.options)
+        this.options.forEach(element => {
+          if (element.selected) {
+            let elementToPush = Object.assign({}, element)
+            delete elementToPush.selected
+            this.selected.push(elementToPush)
+          }
+        })
+
+        this.$emit('input', this.selected);
+        this.open = true
+      } else {
+        this.selected = {}
+        this.selected = Object.assign({}, this.options[index]);
+        delete this.selected.selected
+        this.open = false
+        this.$emit('input', this.selected);
+      }
+    }
+  }
+}
 </script>
 <style scoped>
+.checked {
+  height: 36px;
+	width: 36px;
+  margin-right: 12px;
+	background-color: #6c70f7;
+  border-radius: 12px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+.checked::before{
+  position: absolute;
+  content: "";
+  width: 5px;
+	height: 10px;
+	border: solid white;
+	border-width: 0 3px 3px 0;
+  transform: rotate(45deg) translate(210%,-20%);
+}
+.checkmark {
+	height: 36px;
+	width: 36px;
+  margin-right: 12px;
+	background-color: #FFFFFF;
+  border-radius: 12px;
+}
+.listContainer {
+  display: flex;
+  align-items: center;
+}
 
-.inputLabel{
+/* .checkbox-form .item:hover input ~ .checkmark {
+	background-color: #dfdfdf;
+} */
+
+.inputLabel {
   display: block;
   font-size: 14px;
   padding: 0.5rem 0;
@@ -124,14 +196,14 @@ export default {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-.custom-select .items div {
-  padding-left: 1em;
+.custom-select .items > div {
+  padding: 5px 12px;
   cursor: pointer;
   user-select: none;
 }
 
 .custom-select .items div:hover {
-  background-color: #6C70F7;
+  background-color: #6c70f7;
   color: white;
 }
 
@@ -152,6 +224,17 @@ export default {
   100% {
     opacity: 1;
     transform: translateY(0px);
+  }
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 </style>
