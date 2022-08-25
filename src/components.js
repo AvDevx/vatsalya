@@ -9,10 +9,14 @@ import vTextField from './components/vTextField.vue'
 import vSelect from './components/vSelect.vue'
 import vCheckBox from './components/vCheckbox.vue'
 import vRadioButton from './components/vRadioButton.vue'
+import vDrawer from './components/vDrawer.vue'
+import vModal from './components/vModal.vue'
 
 export default { 
   vTextField,
   vSelect,
   vCheckBox,
-  vRadioButton
+  vRadioButton,
+  vDrawer,
+  vModal
 }
