@@ -11,6 +11,7 @@ import vCheckBox from './components/vCheckbox.vue'
 import vRadioButton from './components/vRadioButton.vue'
 import vDrawer from './components/vDrawer.vue'
 import vModal from './components/vModal.vue'
+import vButton from './components/vButton.vue'
 
 export default { 
   vTextField,
@@ -18,5 +19,6 @@ export default {
   vCheckBox,
   vRadioButton,
   vDrawer,
-  vModal
+  vModal,
+  vButton
 }

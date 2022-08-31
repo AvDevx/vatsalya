@@ -132,8 +132,8 @@ export default {
 }
 
 .checkbox-form .item .checkmark:after {
-	width: 5px;
-	height: 10px;
+	width: 8px;
+	height: 15px;
 	border: solid white;
 	border-width: 0 3px 3px 0;
 }
@@ -146,7 +146,7 @@ export default {
     transform: scale(1.02) translate(180%,80%) rotate(45deg);
   }
   100% {
-    transform: scale(1) translate(180%,80%) rotate(45deg);
+    transform: scale(1) rotate(45deg) translate(17px, -4px);
   }
 }
 </style>

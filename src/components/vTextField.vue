@@ -121,7 +121,8 @@ export default {
 }
 .inputLabel{
   display: block;
-  font-size: 14px;
+  color: #8998A9;
+  font-size: 12px;
   padding: 0.5rem 0;
 }
 .input {
@@ -133,18 +134,19 @@ export default {
   border-radius: 0px 1rem 1rem 1rem;
   background: #f9f9f9;
   border: 2px transparent solid;
-  font-weight: bold;
   letter-spacing: 1px;
+  font-size: 14px;
+  color: #171717;
 }
 .border-red {
-  border: 2px solid #D04B4B;
+  border: 2px solid #FF5353;
 }
 .border-green {
-  border: 2px solid #59C5AA;
+  border: 2px solid #8ACC59;
 }
 .input:focus {
   outline: none !important;
-  border: 2px solid #4B89D0;
+  border: 2px solid #5956e9;
 }
 .errorMessage {
   display: block;
