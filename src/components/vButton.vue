@@ -1,5 +1,5 @@
 <template>
-  <component :is="type" :href="href" class="button" ref="button" @mouseover="hoverActive" @mouseleave="hoverLeft">
+  <component :is="type" :href="href" class="button" ref="button" @mouseover="hoverActive" @click="$emit('click')" @mouseleave="hoverLeft">
     <slot/>
   </component>
 </template>
